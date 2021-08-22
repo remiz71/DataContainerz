@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{bea63991-7fa8-49ed-bae6-b8ce61886749}</ProjectGuid>
-    <RootNamespace>DataContainerz</RootNamespace>
+    <ProjectGuid>{f77269ad-ff18-4911-bf1c-5e89c379d15c}</ProjectGuid>
+    <RootNamespace>ForwardList</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
