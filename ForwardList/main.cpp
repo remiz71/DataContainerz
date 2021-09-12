@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #define delim "________________________________"
+#define tab "\t"
 
 class Element
 {
@@ -26,9 +27,36 @@ public:
 						//НЕ на что указывать.
 		Size = 0;
 	}
+	ForwardList(const initializer_list<int>& il):ForwardList() //Контейнер как наш ForwardList
+	{														   // Обьект, который организует хранение других обьектов в памяти
+															   // Методы : Begin() - возвращает итератор на начало контейнера
+															   // end() - в конец контейнера
+		cout << typeid(il.begin()).name() << endl;
+		for (int const* it = il.begin(); it != il.end(); it++)
+		{
+			this->push_back(*it);
+		}
+
+	}
+	ForwardList(const ForwardList& other) :ForwardList()
+	{
+		for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
+			push_back(Temp->Data);
+	}
 	~ForwardList()
 	{
 		clear();
+	}
+	//Operators:
+
+	ForwardList& operator=(const ForwardList& other)
+	{
+		//1. Delete old object's data
+		while (Head)pop_front();
+		//2. Byte-to-byte copying
+		for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
+			push_back(Temp->Data);
+		return *this;
 	}
 	const int& operator[](const int index);
 
@@ -52,7 +80,7 @@ public:
 		else
 		{
 			Element* temp = this->Head;
-			while (temp->pNext != nullptr)
+			while (temp->pNext)
 			{
 				temp = temp->pNext;
 			}
@@ -89,8 +117,7 @@ public:
 				{
 				temp = temp->pNext; // копируем в темп адрес элемента, стоящего на месте, куда мы хотим вставить значение
 				}
-			Element* New = new Element(Data, temp->pNext);
-			temp->pNext = New;
+			temp->pNext = new Element(Data, temp->pNext);
 		}
 	}
 	void erase(int index)
@@ -117,12 +144,8 @@ public:
 
 	void print()const
 	{
-		Element* Temp = Head;
-		while (Temp)
-		{
-			cout << Temp << "\t" << Temp->Data << "\t" << Temp->pNext << endl;
-			Temp = Temp->pNext;
-		}
+		for (Element* Temp = Head; Temp; Temp = Temp->pNext)
+			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
 	}
 	void clear()
 	{
@@ -133,9 +156,11 @@ public:
 	}
 };
 
+//#define BASE_CHECK
 void main()
 {
 	setlocale(LC_ALL, "");
+#ifdef BASE_CHECK
 	int n; cout << " Enter the size of list: "; cin >> n;
 	ForwardList list;
 	for (int i = 0; i < n; i++)
@@ -156,10 +181,19 @@ void main()
 	list.pop_back();
 	cout << delim << endl;
 	list.print();
-	
-	
 
 
+
+
+
+#endif // BASE_CHECK
+
+	ForwardList list = { 3,5,8,12,21 };
+	list.print();
+	ForwardList list2;
+	list2 = list;
+	cout << delim << endl;
+	list2.print();
 
 }
 
@@ -178,3 +212,10 @@ const int& ForwardList::operator[](const int index)
 	}
 
 }
+
+//Двусвязный список - список , каждый элемент которого иммеет указатель на пред. и след элемент.
+// Это дает возможность ходить по списку в обоих направлениях. Уменьшает время поиска элемента в 2 раза
+//У 2связнорго списка есть голова и хвост
+// если список пуст, голова и хвост указывают на 0. Когда в списке появляется первый элемент,
+//Он одновременно является и головой и хвостом списка. Являет первым и последним элементом списка.
+//
