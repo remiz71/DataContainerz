@@ -12,7 +12,7 @@ int main()
 	setlocale(LC_ALL, "Russian");
 
 	int n; cout << " Enter the size of list: "; cin >> n;
-	List list;
+	/*List list;
 	for (int i = 0; i < n; i++)
 	{
 		list.push_front(rand()%100);
@@ -22,8 +22,9 @@ int main()
 	list.push_back(60);
 	list.print();
 	cout << delim << endl;
-	list.insert(1,4);
-	list.print();
+	list.insert(1,4);*/
+	cout << typeid(List).name() << endl;
+	
 	
 	return 0;
 }

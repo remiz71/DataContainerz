@@ -14,7 +14,9 @@ class List
 	Element* Tail;
 	int GetSize() { return Size; };
 public:
-	List(); //Default constrctor
+	List(); 
+	//List(const initializer_list<int>& il) :List(); //Контейнер как наш ForwardList
+	//List(const List& other) :List() {};
 	~List();
 
 	// Methods

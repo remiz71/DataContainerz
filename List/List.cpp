@@ -8,6 +8,22 @@ List::List()
 
 	Size = 0;
 }
+//List::List(const initializer_list<int>& il) :List() //Контейнер как наш ForwardList
+//{														   // Обьект, который организует хранение других обьектов в памяти
+//														   // Методы : Begin() - возвращает итератор на начало контейнера
+//														   // end() - в конец контейнера
+//	cout << typeid(il.begin()).name() << endl;
+//	for (int const* it = il.begin(); it != il.end(); it++)
+//	{
+//		this->push_back(*it);
+//	}
+//
+//}
+//List::List(const List& other) :List()
+//{ 
+//	for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
+//		push_back(Temp->Data);
+//}
 List::~List()
 {
 	clear();

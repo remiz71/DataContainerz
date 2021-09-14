@@ -4,6 +4,15 @@ using namespace std;
 #define delim "________________________________"
 #define tab "\t"
 
+class Element
+{
+	int Data;
+	Element* pNext; // pointer of next element
+public:
+	Element(int Data, Element* pNext = nullptr) :Data(Data), pNext(pNext) {};
+	~Element() {};
+	friend class ForwardList;
+};
 
 class ForwardList
 {
