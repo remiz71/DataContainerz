@@ -1,4 +1,4 @@
-#include "List.h"
+﻿#include "List.h"
 #include "List.h"
 
 List::List()
@@ -58,14 +58,14 @@ void List::insert(int Data, int index)
 			Element* TempNext = this->Head;
 			for (int i = 1; i < index; i++)
 			{
-				TempNext = TempNext->pNext;
+				TempNext = TempNext->pNext; // Ищем элемент, стоящий следущим по индексу
 			}
-			Element* TempPrev = TempNext->pPrev;
+			Element* TempPrev = TempNext->pPrev; // Сохраняем предыдущий элемент
 			Element* Temp = new Element(Data);
-			TempPrev->pNext = Temp;
-			Temp->pNext = TempNext;
-			Temp->pPrev = TempPrev;
-			TempNext->pPrev = Temp;
+			TempPrev->pNext = Temp; // Записываем адрес темп в поле pNext пред элемента
+			Temp->pNext = TempNext; // Записываем адрес след элемента в темп
+			Temp->pPrev = TempPrev; // Записываем адрес пред элемент в темп
+			TempNext->pPrev = Temp; //Записываем адрес темп в поле pPrev след элемента
 		}
 		else
 		{
@@ -92,14 +92,14 @@ void List::erase(int index)
 	Element* Del = Head;
 	for (int i = 1; i < index; i++)
 	{
-		Del = Del->pNext;
+		Del = Del->pNext; // Ищем элемент
 	}
-	Element* PrevD = Del->pPrev;
-	Element* AfterD = Del->pNext;
-	if (PrevD != 0 && Size != 0) PrevD->pNext = AfterD;
-	if (AfterD != 0 && Size != 0) AfterD->pPrev = PrevD;
-	if (index == 1) Head = AfterD;
-	if (index == Size) Tail = PrevD;
+	Element* PrevD = Del->pPrev; // Создаем элемент стоящий после удаляемого
+	Element* AfterD = Del->pNext; // Создаем элемент перед удаляемым
+	if (PrevD != 0 && Size != 0) PrevD->pNext = AfterD; // Проверяем , не Head ли предыдущий элемент? Если нет то переписываем адрес след элемента
+	else if (AfterD != 0 && Size != 0) AfterD->pPrev = PrevD; // Проверяем, не Tail ли след элемент? Если нет, переписываем адрес пред элемента
+	else if (index == 1) Head = AfterD; // Проверяем, не хотим ли мы удалить Head, если да то в Head пишем адрес след за ним элемента
+	else if (index == Size) Tail = PrevD; // Проверяем, не хотим ли мы удалить Tail, если да то пишем в Tail адрес пред за ним элемента
 	delete Del;
 	Size--;
 
