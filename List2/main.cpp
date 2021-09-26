@@ -3,15 +3,17 @@ using namespace std;
 
 //#define DEBUG
 
+template<typename T>
+
 class List
 {
 	class Element
 	{
-		int Data;
+		T Data;
 		Element* pNext;
 		Element* pPrev;
 	public:
-		Element(int Data, Element* pNext = nullptr, Element* pPrev = nullptr) :Data(Data), pNext(pNext), pPrev(pPrev)
+		Element(T Data, Element* pNext = nullptr, Element* pPrev = nullptr) :Data(Data), pNext(pNext), pPrev(pPrev)
 		{
 #ifdef DEBUG
 			cout << "EConstructor:\t" << this << endl;
@@ -103,14 +105,14 @@ public:
 		cout << "LConstructor:\t" << this << endl;
 #endif // DEBUG
 	}
-	List(const initializer_list<int>& il):List()
+	List(const initializer_list<T>& il):List()
 	{
-		for (int const* it = il.begin(); it != il.end(); it++)
+		for (T const* it = il.begin(); it != il.end(); it++)
 		{
 				push_back(*it);
 		}
 	}
-	List(const List& other) :List()
+	List(const List<T>& other) :List()
 	{
 		for (Element* Temp = other.Head; Temp; Temp++)push_back(Temp->Data);
 #ifdef DEBUG
@@ -130,7 +132,7 @@ public:
 
 	//						operators:
 
-	List& operator=(const List& other)
+	List<T>& operator=(const List<T>& other)
 	{
 		if (this == &other)return *this;
 		while (Head)pop_front();
@@ -144,7 +146,7 @@ public:
 	
 
 	//						Adding elements:
-	void push_front(int Data)
+	void push_front(T Data)
 	{
 		if (Head == nullptr && Tail == nullptr)
 		{
@@ -160,7 +162,7 @@ public:
 		}
 		size++;
 	}
-	void push_back(int Data)
+	void push_back(T Data)
 	{
 		if (!Head && !Tail)return push_front(Data);
 		/*Element* New = new Element(Data);
@@ -256,7 +258,7 @@ void main()
 			//i - iterator
 	}
 	*/
-	List list = { 0,1,1,2,3,5,8,13,21 };
+	List<int> list = { 0,1,1,2,3,5,8,13,21 };
 	for (int i : list)
 	{
 		cout << i << "\t";
