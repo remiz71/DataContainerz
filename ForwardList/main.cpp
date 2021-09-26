@@ -19,6 +19,55 @@ class ForwardList
 	int Size;
 	Element* Head; //Голова списка , указывает на начальный элемент списка
 public:
+	class Iterator
+	{
+		Element* Temp;
+	public:
+		Iterator(Element* Temp = nullptr) :Temp(Temp)
+		{
+			cout << "ItConstructor" <<tab<<this<<endl;
+		}
+		~Iterator()
+		{
+			cout << endl << "ItDestructor"<<tab <<this<< endl;
+		}
+		Iterator& operator++()
+		{
+			Temp = Temp->pNext;
+			return *this;
+		}
+		Iterator operator++(int)
+		{
+			Iterator old = *this;
+			Temp = Temp->pNext;
+			return old;
+		}
+		bool operator=(const Iterator& other)const
+		{
+			return this->Temp == other.Temp;
+		}
+		bool operator!=(const Iterator& other)const
+		{
+			return this->Temp != other.Temp;
+		}
+		const int& operator *()const
+		{
+			return this->Temp->Data;
+		}
+		int& operator *()
+		{
+			return this->Temp->Data;
+		}
+
+	};
+	Iterator begin()
+	{
+		return this->Head;
+	}
+	Iterator end()
+	{
+		return nullptr;
+	}
 	int GetSize() { return Size; }
 	ForwardList()
 	{
@@ -190,11 +239,16 @@ void main()
 #endif // BASE_CHECK
 
 	ForwardList list = { 3,5,8,12,21 };
+	for (int i : list)
+	{
+		cout << i << "\t";
+	}
+	cout << endl;
 	list.print();
-	ForwardList list2;
+	/*ForwardList list2;
 	list2 = list;
 	cout << delim << endl;
-	list2.print();
+	list2.print();*/
 
 }
 

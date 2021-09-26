@@ -8,22 +8,22 @@ List::List()
 
 	Size = 0;
 }
-//List::List(const initializer_list<int>& il) :List() //Контейнер как наш ForwardList
-//{														   // Обьект, который организует хранение других обьектов в памяти
-//														   // Методы : Begin() - возвращает итератор на начало контейнера
-//														   // end() - в конец контейнера
-//	cout << typeid(il.begin()).name() << endl;
-//	for (int const* it = il.begin(); it != il.end(); it++)
-//	{
-//		this->push_back(*it);
-//	}
-//
-//}
-//List::List(const List& other) :List()
-//{ 
-//	for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
-//		push_back(Temp->Data);
-//}
+List::List(const initializer_list<int>& il) :List() //Контейнер как наш ForwardList
+{														   // Обьект, который организует хранение других обьектов в памяти
+														   // Методы : Begin() - возвращает итератор на начало контейнера
+														   // end() - в конец контейнера
+	cout << typeid(il.begin()).name() << endl;
+	for (int const* it = il.begin(); it != il.end(); it++)
+	{
+		this->push_back(*it);
+	}
+
+}
+List::List(const List& other) :List()
+{ 
+	for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
+		push_back(Temp->Data);
+}
 List::~List()
 {
 	clear();
@@ -112,9 +112,9 @@ void List::erase(int index)
 	}
 	Element* PrevD = Del->pPrev; // Создаем элемент стоящий после удаляемого
 	Element* AfterD = Del->pNext; // Создаем элемент перед удаляемым
+	if (index == 1) pop_front(); // Проверяем, не хотим ли мы удалить Head, если да то в Head пишем адрес след за ним элемента
 	if (PrevD != 0 && Size != 0) PrevD->pNext = AfterD; // Проверяем , не Head ли предыдущий элемент? Если нет то переписываем адрес след элемента
 	else if (AfterD != 0 && Size != 0) AfterD->pPrev = PrevD; // Проверяем, не Tail ли след элемент? Если нет, переписываем адрес пред элемента
-	else if (index == 1) Head = AfterD; // Проверяем, не хотим ли мы удалить Head, если да то в Head пишем адрес след за ним элемента
 	else if (index == Size) Tail = PrevD; // Проверяем, не хотим ли мы удалить Tail, если да то пишем в Tail адрес пред за ним элемента
 	delete Del;
 	Size--;
@@ -127,5 +127,5 @@ void List::print()
 }
 void List::clear()
 {
-	while (Size) pop_front();
+	while (Size) pop_back();
 }

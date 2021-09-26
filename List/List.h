@@ -15,7 +15,7 @@ class List
 	int GetSize() { return Size; };
 public:
 	List(); 
-	//List(const initializer_list<int>& il) :List(); //Контейнер как наш ForwardList
+	List(const initializer_list<int>& il); //Контейнер как наш ForwardList
 	//List(const List& other) :List() {};
 	~List();
 
