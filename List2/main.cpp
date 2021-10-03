@@ -82,6 +82,46 @@ public:
 		}
 
 	};
+	class ReverseIterator
+	{
+		Element* Temp;
+	public:
+		ReverseIterator(Element* Temp = nullptr) :Temp(Temp) {}
+		~ReverseIterator(){}
+
+		ReverseIterator& operator--()
+		{
+			Temp = Temp->pPrev;
+			return *this;
+		}
+		ReverseIterator& operator--(int)
+		{
+			ReverseIterator old = *this;
+			Temp = Temp->pPrev;
+			return old;
+		}
+		bool operator==(const ReverseIterator& other)const
+		{
+			return this->Temp == other.Temp;
+		}
+		bool operator !=(const ReverseIterator& other)const
+		{
+			return this->Temp != other.Temp;
+		}
+
+		const int& operator*()const
+		{
+			return this->Temp->Data;
+		}
+		int& operator*()
+		{
+			return this->Temp->Data;
+		}
+
+
+
+
+	};
 	Iterator begin()
 	{
 		return Head;
@@ -90,6 +130,16 @@ public:
 	{
 		return nullptr;
 	}
+	
+	ReverseIterator rBegin()
+	{
+		return Tail;
+	}
+	ReverseIterator rEnd()
+	{
+		return nullptr;
+	}
+
 
 
 	size_t get_size()const
@@ -214,6 +264,8 @@ public:
 };
 //#define BASE_CHECK
 //#define ITERATORS_CHECK
+//#define RANGE_BASED_CHECK
+#define REVERSEITERATOR_CHECK
 
 void main()
 {
@@ -240,6 +292,7 @@ void main()
 		cout << *it << endl;
 	}
 #endif // ITERATORS_CHECK
+#ifdef RANGE_BASED_CHECK
 	int arr[] = { 3,5,8,13,21 };
 	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
 	{
@@ -264,6 +317,18 @@ void main()
 		cout << i << "\t";
 	}
 	cout << endl;
+#endif // RANGE_BASED_CHECK
+#ifdef REVERSEITERATOR_CHECK
+	List<int> list3 = { 1,3,5,7,9,12,15 };
+	for (List<int>::ReverseIterator rIt = list3.rBegin(); rIt != list3.rEnd(); rIt--)
+	{
+		cout << *rIt << endl;
+	}
+#endif // REVERSEITERATOR_CHECK
+
+	
+
+
 
 
 }
