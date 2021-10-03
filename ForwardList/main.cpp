@@ -4,18 +4,21 @@ using namespace std;
 #define delim "________________________________"
 #define tab "\t"
 
-class Element
-{
-	int Data;
-	Element* pNext; // pointer of next element
-public:
-	Element(int Data, Element* pNext = nullptr) :Data(Data), pNext(pNext) {};
-	~Element() {};
-	friend class ForwardList;
-};
+
+template<typename T>
+
 
 class ForwardList
 {
+class Element
+{
+	T Data;
+	Element* pNext; // pointer of next element
+public:
+	Element(T Data, Element* pNext = nullptr) :Data(Data), pNext(pNext) {};
+	~Element() {};
+	friend class ForwardList;
+};
 	int Size;
 	Element* Head; //Голова списка , указывает на начальный элемент списка
 public:
@@ -77,7 +80,7 @@ public:
 						//НЕ на что указывать.
 		Size = 0;
 	}
-	ForwardList(const initializer_list<int>& il):ForwardList() //Контейнер как наш ForwardList
+	ForwardList(const initializer_list<T>& il):ForwardList() //Контейнер как наш ForwardList
 	{														   // Обьект, который организует хранение других обьектов в памяти
 															   // Методы : Begin() - возвращает итератор на начало контейнера
 															   // end() - в конец контейнера
@@ -88,7 +91,7 @@ public:
 		}
 
 	}
-	ForwardList(const ForwardList& other) :ForwardList()
+	ForwardList(const ForwardList<T>& other) :ForwardList()
 	{
 		for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
 			push_back(Temp->Data);
@@ -99,7 +102,7 @@ public:
 	}
 	//Operators:
 
-	ForwardList& operator=(const ForwardList& other)
+	ForwardList<T>& operator=(const ForwardList<T>& other)
 	{
 		//1. Delete old object's data
 		while (Head)pop_front();
@@ -108,11 +111,10 @@ public:
 			push_back(Temp->Data);
 		return *this;
 	}
-	const int& operator[](const int index);
 
 
 	// Adding elements
-	void push_front(int Data) 
+	void push_front(T Data) 
 	{
 		Element* New = new Element(Data);
 		// прикрепили элемент к списку
@@ -121,7 +123,7 @@ public:
 		Head = New;
 		Size++;
 	}
-	void push_back(int Data)
+	void push_back(T Data)
 	{
 		if (Head == nullptr)
 		{
@@ -154,7 +156,7 @@ public:
 		erase(Size - 1);
 	}
 
-	void insert(int Data, int index)
+	void insert(T Data, int index)
 	{
 		if (index==0)
 		{
@@ -238,7 +240,7 @@ void main()
 
 #endif // BASE_CHECK
 
-	ForwardList list = { 3,5,8,12,21 };
+	ForwardList<int> list = { 3,5,8,12,21 };
 	for (int i : list)
 	{
 		cout << i << "\t";
@@ -249,22 +251,6 @@ void main()
 	list2 = list;
 	cout << delim << endl;
 	list2.print();*/
-
-}
-
-const int& ForwardList::operator[](const int index)
-{
-	int counter = 0;
-	Element *temp = this->Head;
-	while (temp!=nullptr)
-	{
-		if (counter == index)
-		{
-			return temp->Data;
-		}
-		temp = temp->pNext;
-		counter++;
-	}
 
 }
 
